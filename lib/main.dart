@@ -1,19 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import "package:flutter/material.dart";
+import 'package:google_fonts/google_fonts.dart';
+import 'package:socialframe/Repository/DBHelper.dart';
 import 'package:socialframe/Routes.dart';
 import 'package:socialframe/Screens/RegisterProcess/Login.dart';
 import 'package:socialframe/Screens/RegisterProcess/Signup.dart';
-import 'package:socialframe/Screens/Splash.dart';
 import 'package:socialframe/firebase_options.dart';
 
+import 'Screens/RegisterProcess/Home.dart';
 import 'Screens/RegisterProcess/Selector.dart';
 
-void main(){
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     options:DefaultFirebaseOptions.currentPlatform
   );
+  FirebaseFirestore.instance.settings=Settings(persistenceEnabled: true,cacheSizeBytes: Settings.CACHE_SIZE_UNLIMITED);
   runApp(HomeApp());
 }
 class HomeApp extends StatelessWidget {
@@ -22,13 +25,14 @@ class HomeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      darkTheme: ThemeData(primarySwatch: Colors.blue),
+      initialRoute: DBHelper.auth.currentUser==null?Routes.Selector:Routes.Home,
+      theme: ThemeData(primarySwatch: Colors.blue,fontFamily: GoogleFonts.lato().fontFamily,backgroundColor: Colors.white),
+      darkTheme: ThemeData(primarySwatch: Colors.blue,fontFamily: GoogleFonts.lato().fontFamily,backgroundColor: Colors.white),
       routes: {
-        Routes.Splash:(context)=>Splash(),
         Routes.Selector:(context)=>Selector(),
         Routes.Signup:(context)=>Signup(),
         Routes.Login:(context)=>Login(),
+        Routes.Home:(context)=>Home()
       },
     );
   }

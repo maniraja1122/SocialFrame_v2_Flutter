@@ -1,8 +1,8 @@
 
 
 class Routes{
-  static String Splash="/";
-  static String Selector="/selector";
+  static String Selector="/welcome";
   static String Login="/login";
   static String Signup="/signup";
+  static String Home="/home";
 }
