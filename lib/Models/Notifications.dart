@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../Repository/AuthHelper.dart';
+
 class Notifications{
-  String key="";
+  String key = DateTime.now().microsecondsSinceEpoch.toString()+AuthHelper.generateRandomString(5);
   String targetuser="";
   String type="";
   String mytext="";

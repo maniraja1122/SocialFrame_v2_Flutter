@@ -4,11 +4,13 @@ import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socialframe/Repository/DBHelper.dart';
 import 'package:socialframe/Routes.dart';
+import 'package:socialframe/Screens/EditProfile.dart';
+import 'package:socialframe/Screens/ProfileShow.dart';
 import 'package:socialframe/Screens/RegisterProcess/Login.dart';
 import 'package:socialframe/Screens/RegisterProcess/Signup.dart';
 import 'package:socialframe/firebase_options.dart';
 
-import 'Screens/RegisterProcess/Home.dart';
+import 'Screens/Home.dart';
 import 'Screens/RegisterProcess/Selector.dart';
 
 Future<void> main() async {
@@ -32,7 +34,8 @@ class HomeApp extends StatelessWidget {
         Routes.Selector:(context)=>Selector(),
         Routes.Signup:(context)=>Signup(),
         Routes.Login:(context)=>Login(),
-        Routes.Home:(context)=>Home()
+        Routes.Home:(context)=>Home(),
+        Routes.EditProfile:(context)=>EditProfile()
       },
     );
   }

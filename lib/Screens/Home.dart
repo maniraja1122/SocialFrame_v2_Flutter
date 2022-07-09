@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:socialframe/Repository/DBHelper.dart';
 import 'package:socialframe/Widgets/TopAppBar.dart';
 
-import '../../Routes.dart';
-import '../../Widgets/BottomNavigationBar.dart';
-import 'Login.dart';
+import '../Routes.dart';
+import '../Widgets/BottomNavigationBar.dart';
+import '../Widgets/MyDrawer.dart';
+import 'RegisterProcess/Login.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,7 +16,7 @@ class Home extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: TopAppBar(),
-          drawer: Drawer(),
+          drawer: MyDrawer(),
           body: TabBarView(
             children: [Login(),Login(),Login()],
           ),
