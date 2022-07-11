@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socialframe/Repository/DBHelper.dart';
+import 'package:socialframe/Screens/SearchUsers.dart';
 import 'package:socialframe/Widgets/TopAppBar.dart';
 
 import '../Routes.dart';
@@ -18,7 +19,7 @@ class Home extends StatelessWidget {
           appBar: TopAppBar(),
           drawer: MyDrawer(),
           body: TabBarView(
-            children: [Login(),Login(),Login()],
+            children: [Login(),Login(),SearchUsers()],
           ),
           bottomNavigationBar:BottomNavBar()
         ));

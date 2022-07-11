@@ -1,7 +1,7 @@
 import '../Repository/AuthHelper.dart';
 
 class Comment {
-  String key = DateTime.now().microsecondsSinceEpoch.toString()+AuthHelper.generateRandomString(5);
+  int key = DateTime.now().microsecondsSinceEpoch;
   String text="";
   String userkey="";
   String postkey="";

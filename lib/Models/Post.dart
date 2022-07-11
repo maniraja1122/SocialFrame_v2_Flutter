@@ -4,7 +4,7 @@ class Post {
   String title = "";
   String author = "";
   String imagelink = "";
-  String key = DateTime.now().microsecondsSinceEpoch.toString()+AuthHelper.generateRandomString(5);
+  int key = DateTime.now().microsecondsSinceEpoch;
   Post({required this.title,required this.author,required this.imagelink});
   Map<String,dynamic> toMap(){
     return {

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../Screens/ChatList.dart';
+
 class TopAppBar extends StatelessWidget with PreferredSizeWidget {
   const TopAppBar({Key? key}) : super(key: key);
 
@@ -8,9 +10,14 @@ class TopAppBar extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       actions: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
-          child: Icon(Icons.mail_rounded),
+        InkWell(
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (c)=>ChatList()));
+          },
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: Icon(Icons.mail_rounded,),
+          ),
         ),
       ],
       title: Text("Social Frame"),
