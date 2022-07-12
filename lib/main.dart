@@ -4,7 +4,9 @@ import "package:flutter/material.dart";
 import 'package:google_fonts/google_fonts.dart';
 import 'package:socialframe/Repository/DBHelper.dart';
 import 'package:socialframe/Routes.dart';
+import 'package:socialframe/Screens/CreatePost.dart';
 import 'package:socialframe/Screens/EditProfile.dart';
+import 'package:socialframe/Screens/HomeFeed.dart';
 import 'package:socialframe/Screens/ProfileShow.dart';
 import 'package:socialframe/Screens/RegisterProcess/Login.dart';
 import 'package:socialframe/Screens/RegisterProcess/Signup.dart';
@@ -35,7 +37,9 @@ class HomeApp extends StatelessWidget {
         Routes.Signup:(context)=>Signup(),
         Routes.Login:(context)=>Login(),
         Routes.Home:(context)=>Home(),
-        Routes.EditProfile:(context)=>EditProfile()
+        Routes.EditProfile:(context)=>EditProfile(),
+        Routes.CreatePost:(context)=>CreatePost(),
+        Routes.HomeFeed:(context)=>HomeFeed()
       },
     );
   }

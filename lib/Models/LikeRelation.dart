@@ -2,7 +2,7 @@
 
 class LikeRelation{
   String UserKey="";
-  String PostKey="";
+  int PostKey=0;
   LikeRelation({required this.PostKey,required this.UserKey});
   Map<String,dynamic> toMap(){
     return {

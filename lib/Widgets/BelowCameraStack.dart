@@ -1,5 +1,3 @@
-
-
 import 'dart:io';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -17,32 +15,44 @@ class BelowCameraStack extends StatelessWidget {
         alignment: Alignment.bottomRight,
         child: InkWell(
           onTap: () async {
-            var picked=await ImagePicker().pickImage(source: ImageSource.gallery,maxHeight: 1800,maxWidth: 1800);
-            if(picked!=null){
-                File imgfile=File(picked.path);
-                try {
-                  await DBHelper.storage.ref().child("ProfilePics").child(DBHelper.auth.currentUser!.uid).putFile(
-                      imgfile);
-                  var newimgurl = await DBHelper.storage.ref().child("ProfilePics").child(DBHelper.auth.currentUser!.uid).getDownloadURL();
-                  DBHelper.db.runTransaction((transaction) async {
-                    var data=await DBHelper.db
-                        .collection("Users")
-                        .where("key", isEqualTo: DBHelper.auth.currentUser!.uid).get();
-                    var currentsnap=data.docs[0].reference;
-                    var securesnap=await transaction.get(currentsnap);
-                    transaction.update(securesnap.reference,{
-                      "MyPICUrl":newimgurl
-                    });
-                  });
-                } on FirebaseException catch(e){
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.message!)));
-                }
+            var picked = await ImagePicker().pickImage(
+                source: ImageSource.gallery, maxHeight: 1800, maxWidth: 1800);
+            if (picked != null) {
+              File imgfile = File(picked.path);
+              try {
+                await DBHelper.storage
+                    .ref()
+                    .child("ProfilePics")
+                    .child(DBHelper.auth.currentUser!.uid)
+                    .putFile(imgfile);
+                var newimgurl = await DBHelper.storage
+                    .ref()
+                    .child("ProfilePics")
+                    .child(DBHelper.auth.currentUser!.uid)
+                    .getDownloadURL();
+                DBHelper.db.runTransaction((transaction) async {
+                  var data = await DBHelper.db
+                      .collection("Users")
+                      .where("key", isEqualTo: DBHelper.auth.currentUser!.uid)
+                      .get();
+                  var currentsnap = data.docs[0].reference;
+                  var securesnap = await transaction.get(currentsnap);
+                  transaction
+                      .update(securesnap.reference, {"MyPICUrl": newimgurl});
+                });
+              } on FirebaseException catch (e) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(e.message!)));
+              }
             }
           },
           child: CircleAvatar(
             radius: 18,
             backgroundColor: Colors.white70,
-            child: Icon(Icons.mode_edit_rounded,color: Colors.black,),
+            child: Icon(
+              Icons.mode_edit_rounded,
+              color: Colors.black,
+            ),
           ),
         ),
       ),

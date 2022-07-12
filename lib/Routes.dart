@@ -6,4 +6,6 @@ class Routes{
   static String Signup="/signup";
   static String Home="/home";
   static String EditProfile="/editprofile";
+  static String CreatePost="/create";
+  static String HomeFeed="/feed";
 }
