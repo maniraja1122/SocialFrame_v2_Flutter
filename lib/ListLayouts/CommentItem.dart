@@ -9,38 +9,40 @@ class CommentItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: StreamBuilder(
-        stream: DBHelper.db
-            .collection("Users")
-            .where("key", isEqualTo: snap.get("userkey"))
-            .snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-    var visitprof=(){Navigator.of(context).push(MaterialPageRoute(builder: (c)=>ProfileShow(id: snap.get("userkey"))));};
-          if(snapshot.hasData){
-            var data=snapshot.data;
-            if(data!.docs[0].get("MyPICUrl")!="")
-            return InkWell(onTap: visitprof,child: CircleAvatar(radius: 25,backgroundImage: NetworkImage(data.docs[0].get("MyPICUrl")),));
-          }
-            return InkWell(onTap: visitprof,child: CircleAvatar(radius: 25,backgroundImage: AssetImage("assets/images/placeholder.png"),));
-        },
+    return Card(
+      child: ListTile(
+        leading: StreamBuilder(
+          stream: DBHelper.db
+              .collection("Users")
+              .where("key", isEqualTo: snap.get("userkey"))
+              .snapshots(),
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+      var visitprof=(){Navigator.of(context).push(MaterialPageRoute(builder: (c)=>ProfileShow(id: snap.get("userkey"))));};
+            if(snapshot.hasData){
+              var data=snapshot.data;
+              if(data!.docs[0].get("MyPICUrl")!="")
+              return InkWell(onTap: visitprof,child: CircleAvatar(radius: 25,backgroundImage: NetworkImage(data.docs[0].get("MyPICUrl")),));
+            }
+              return InkWell(onTap: visitprof,child: CircleAvatar(radius: 25,backgroundImage: AssetImage("assets/images/placeholder.png"),));
+          },
+        ),
+        title: StreamBuilder(
+          stream: DBHelper.db
+              .collection("Users")
+              .where("key", isEqualTo: snap.get("userkey"))
+              .snapshots(),
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if(snapshot.hasData){
+              var data=snapshot.data;
+              return Text(data!.docs[0].get("Name"));
+            }
+            return Text("Fetching");
+          },
+        ),
+        subtitle: Text(snap.get("text")),
       ),
-      title: StreamBuilder(
-        stream: DBHelper.db
-            .collection("Users")
-            .where("key", isEqualTo: snap.get("userkey"))
-            .snapshots(),
-        builder: (BuildContext context,
-            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
-          if(snapshot.hasData){
-            var data=snapshot.data;
-            return Text(data!.docs[0].get("Name"));
-          }
-          return Text("Fetching");
-        },
-      ),
-      subtitle: Text(snap.get("text")),
     );
   }
 }

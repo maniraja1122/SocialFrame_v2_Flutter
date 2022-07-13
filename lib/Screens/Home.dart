@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:socialframe/Repository/DBHelper.dart';
 import 'package:socialframe/Screens/HomeFeed.dart';
 import 'package:socialframe/Screens/SearchUsers.dart';
+import 'package:socialframe/Screens/ShowNotifications.dart';
 import 'package:socialframe/Widgets/TopAppBar.dart';
 
 import '../Routes.dart';
@@ -20,7 +21,7 @@ class Home extends StatelessWidget {
           appBar: TopAppBar(),
           drawer: MyDrawer(),
           body: TabBarView(
-            children: [HomeFeed(),Login(),SearchUsers()],
+            children: [HomeFeed(),ShowNotifications(),SearchUsers()],
           ),
           bottomNavigationBar:BottomNavBar()
         ));

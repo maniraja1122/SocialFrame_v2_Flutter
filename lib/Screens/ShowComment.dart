@@ -5,6 +5,7 @@ import 'package:socialframe/ListLayouts/CommentItem.dart';
 import 'package:socialframe/Screens/ProfileShow.dart';
 
 import '../Models/Comment.dart';
+import '../Models/Notifications.dart';
 import '../Repository/DBHelper.dart';
 class ShowComment extends StatelessWidget {
   QueryDocumentSnapshot snap;
@@ -104,8 +105,17 @@ class ShowComment extends StatelessWidget {
                             userkey: DBHelper.auth.currentUser!.uid,
                             text: commenttext)
                             .toMap());
-                        commenttext = "";
                         controller.clear();
+                        var allusers=await DBHelper.db.collection("Users").where("key",isEqualTo:DBHelper.auth.currentUser!.uid).get();
+                        var myuser=allusers.docs[0];
+                        await DBHelper.db.collection("Notifications").add(Notifications(
+                            targetuser: snap.get("author"),
+                            mytext: myuser.get("Name")+" commented on your post",
+                            type: "3",
+                            VisitingUnit: snap.get("key").toString(),
+                            imgurl:snap.get("imagelink"))
+                            .toMap());
+                        commenttext = "";
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text("Enter a comment first")));

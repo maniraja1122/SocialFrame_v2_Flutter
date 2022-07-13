@@ -1,4 +1,5 @@
-import 'dart:io';
+
+import 'dart:io' as io;
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,8 +8,8 @@ import 'package:socialframe/Models/Chat.dart';
 import 'package:socialframe/Models/FollowRelation.dart';
 import 'package:socialframe/Models/LikeRelation.dart';
 import 'package:socialframe/Models/MessageModel.dart';
+import 'package:socialframe/Models/Notifications.dart';
 import 'package:socialframe/Models/Post.dart';
-import 'package:socialframe/Repository/AuthHelper.dart';
 
 class DBHelper {
   static var db = FirebaseFirestore.instance;
@@ -28,6 +29,15 @@ class DBHelper {
       } else {
         await db.collection("FollowRelation").add(
             FollowRelation(FollowedID: followed, FollowerID: follower).toMap());
+        var allusers=await db.collection("Users").where("key",isEqualTo: follower).get();
+        var myuser=allusers.docs[0];
+        await db.collection("Notifications").add(Notifications(
+                targetuser: followed,
+                mytext: myuser.get("Name")+" followed you",
+                type: "1",
+                VisitingUnit: follower,
+                imgurl: myuser.get("MyPICUrl"))
+            .toMap());
       }
     });
   }
@@ -85,7 +95,7 @@ class DBHelper {
     }
   }
 
-  static Future<void> CreatePost({String title = "", File? image}) async {
+  static Future<void> CreatePost({String title = "", io.File? image}) async {
     var newkey = DateTime.now().microsecondsSinceEpoch;
     await storage.ref().child("Posts").child(newkey.toString()).putFile(image!);
     var newlink = await storage
@@ -113,6 +123,23 @@ class DBHelper {
       await db.collection("LikeRelation").add(
           LikeRelation(PostKey: postid, UserKey: auth.currentUser!.uid)
               .toMap());
+      var postdetails =
+          await db.collection("Post").where("key", isEqualTo: postid).get();
+      var post = postdetails.docs[0];
+      await db.collection("Notifications").add(Notifications(
+              targetuser: post.get("author"),
+              mytext: "Someone liked your post",
+              type: "2",
+              VisitingUnit: postid.toString(),
+              imgurl: post.get("imagelink"))
+          .toMap());
     }
+  }
+  static Future<void> UpdateReadNotifications(int val) async {
+    var users=await db.collection("Users").where("key",isEqualTo: auth.currentUser!.uid).get();
+    var myuser=users.docs[0];
+    await myuser.reference.update({
+      "ReadNotifications":val
+    });
   }
 }

@@ -29,6 +29,7 @@ class HomeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: DBHelper.auth.currentUser==null?Routes.Selector:Routes.Home,
       theme: ThemeData(primarySwatch: Colors.blue,fontFamily: GoogleFonts.lato().fontFamily,backgroundColor: Colors.white),
       darkTheme: ThemeData(primarySwatch: Colors.blue,fontFamily: GoogleFonts.lato().fontFamily,backgroundColor: Colors.white),
