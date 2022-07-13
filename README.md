@@ -1,17 +1,24 @@
-# socialframe
+# SocialFrame v2
+A Social Media App made with Flutter
+ <br>
+### Features : <br>
+Post (Like,Comment)  <br>
+Profiles (Showing User Posts,DP,Description,No_of_Posts/Followers/Following/Message Option) <br>
+Searching Users <br>
+Notifications when someone likes your post,comments on it or follows you<br>
+Messaging<br>
+Edit Profile<br>
+Authentications and standard check is added for login/signup<br>
+Home feed will be based on whom you follow and latest posts<br>
+ <br>
+### Note all the pages are dynamic and are updated in real time
+<br>
+Clicking on any person's name in comment section,post header or other places will take you to his/her profile.<br>
+Messages,Notifications and its count,Home Feed and every single data is updated in realtime.<br>
 
-A new Flutter project.
+### SocialFrame v1 vs SocialFrame v2 <br>
+v1 was in kotlin and v2 is in Flutter with updated UI Scheme <br> 
 
-## Getting Started
+### Video Preview
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# SocialFrame_v2_Flutter
+[![Social Frame](https://img.youtube.com/vi/D1A-_UKXJOs/0.jpg)](https://www.youtube.com/watch?v=D1A-_UKXJOs)
